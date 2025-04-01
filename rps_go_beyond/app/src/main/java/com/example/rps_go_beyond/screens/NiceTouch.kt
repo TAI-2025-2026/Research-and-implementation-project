@@ -30,7 +30,12 @@ import com.example.rps_go_beyond.classes.GameParameters
 import com.example.rps_go_beyond.classes.NavigationItem
 
 @Composable
-fun CardInterface(activity: MainActivity, navController: NavController, item: GameParameters) {
+fun CardInterface(
+    activity: MainActivity,
+    navController: NavController,
+    item: GameParameters,
+    onClick: (GameParameters) -> Unit
+) {
     Spacer(modifier = Modifier.height(8.dp))
     Surface(
         modifier = Modifier
@@ -40,15 +45,7 @@ fun CardInterface(activity: MainActivity, navController: NavController, item: Ga
                 color = MaterialTheme.colorScheme.onBackground.copy(0.4f),
                 shape = MaterialTheme.shapes.medium)
             .clickable {
-                navController.navigate(NavigationItem.Game.route){
-                    navController.graph.startDestinationRoute?.let { route ->
-                        popUpTo(route) {
-                            inclusive = true
-                        }
-                    }
-                    launchSingleTop = true
-                    restoreState = false
-                }
+                onClick(item)
             },
         color = MaterialTheme.colorScheme.background.copy(0.4f),
         shape = MaterialTheme.shapes.medium
